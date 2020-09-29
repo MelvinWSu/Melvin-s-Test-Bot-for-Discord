@@ -16,7 +16,7 @@ class DiscordCmd(commands.Cog):
     @commands.command(name='create_channel', help='Create a new channel')
     @commands.has_role('Admin')
     @commands.guild_only()
-    async def create_channel(ctx, channel_name=None):
+    async def create_channel(self, ctx, channel_name=None):
         if not channel_name:
             await ctx.send('Name paramter for creating a channel needed')
         else:
@@ -34,7 +34,7 @@ class DiscordCmd(commands.Cog):
     @commands.command(name='send_guild_message',help='Have the bot send a message to the given channel')
     @commands.has_role('Admin')
     @commands.guild_only()
-    async def send_guild_message(ctx, channel_name = None, message = "a"):
+    async def send_guild_message(self, ctx, channel_name = None, message = "a"):
         if not channel_name:
             await ctx.send('Name paramter for channel to send message to')
         else:
@@ -48,7 +48,7 @@ class DiscordCmd(commands.Cog):
     @commands.command(name='send_dm',help='Have the bot send a direct message to the given user')
     @commands.has_role('Admin')
     @commands.guild_only()
-    async def send_dm(ctx, username = None, message = "a"):
+    async def send_dm(self, ctx, username = None, message = "a"):
         if not username:
             await ctx.send('Name paramter for user to send message to')
         else:
@@ -59,28 +59,12 @@ class DiscordCmd(commands.Cog):
             else:
                 await member_username.send(message)
 
-    @commands.command(name='kick_user', help='Kick the user!')
-    @commands.has_role('Admin')
-    @commands.guild_only()
-    async def kick_user(ctx, username=None, reason="a"):
-        print("user: " + username)
-        print("reason: " + reason)
-        if not username:
-            await ctx.send('Name paramter for user to kick')
-        else:
-            guild = ctx.guild
-            member_username = discord.utils.get(guild.members, name=username)
-            if not member_username:
-                await ctx.send('User is not in the guild')
-            else:
-                await kick(member_username, reason)
-
 ##########################################################
 
 #api functions
 class simpleFunctions(commands.Cog):
     @commands.command(name='99', help='Responds with a random quote from Brooklyn 99')
-    async def nine_nine(ctx):
+    async def nine_nine(self, ctx):
         brooklyn_99_quotes = [
             'I\'m the human form of the 💯 emoji.',
             'Bingpot!',
@@ -95,7 +79,7 @@ class simpleFunctions(commands.Cog):
 
     @commands.command(name='roll_dice', help='Simulates rolling dice.')
     @commands.guild_only()
-    async def roll(ctx, number_of_dice: int, number_of_sides: int):
+    async def roll(self, ctx, number_of_dice: int, number_of_sides: int):
         dice = [
             str(random.choice(range(1, number_of_sides + 1)))
             for _ in range(number_of_dice)
